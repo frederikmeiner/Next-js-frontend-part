@@ -993,6 +993,9 @@ video {
 .h-64 {
   height: 16rem;
 }
+.h-auto {
+  height: auto;
+}
 .min-h-\[100dvh\] {
   min-height: 100dvh;
 }
@@ -1001,6 +1004,9 @@ video {
 }
 .w-64 {
   width: 16rem;
+}
+.w-full {
+  width: 100%;
 }
 .max-w-4xl {
   max-width: 56rem;
@@ -1087,10 +1093,6 @@ video {
 }
 .bg-white\/50 {
   background-color: rgb(255 255 255 / 0.5);
-}
-.bg-red-800 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(153 27 27 / var(--tw-bg-opacity, 1));
 }
 .p-4 {
   padding: 1rem;

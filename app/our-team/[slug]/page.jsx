@@ -1,5 +1,6 @@
 import { BlocksRenderer } from "@strapi/blocks-react-renderer";
 import qs from "qs";
+import Slider from "@/components/Slider";
 import Spoiler from "@/components/Spoiler";
 import Testimonial from "@/components/Testimonial";
 
@@ -12,30 +13,41 @@ async function fetchTeamMember(slug) {
         slug: slug,
       },
       populate: {
-        photo: true, // Populate the 'photo' media field
+        photo: true, 
         bodyContent: {
           on: {
-            // Use 'on' fragments to specify components to populate
             "features.rich-text": true,
             "features.spoiler": true,
             "features.testimonial": {
               populate: {
-                smallimage: true, // Populate 'smallimage' inside 'testimonial'
+                smallimage: true, 
+              },
+            },
+            "features.slider": {
+              populate: {
+                slide_image: true, 
               },
             },
           },
         },
-      },
+      }
+      
     },
     { encodeValuesOnly: true }
   );
 
 
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/team-members?${query}`, {
-  headers: {
-    Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_TOKEN}`,
-  },
-});
+//  const response = await fetch(`http://localhost:1331/api/team-members?${query}`, {
+//  headers: {
+   // Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_TOKEN}`,
+//  },
+//});
+
+const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/team-members?${query}`, {
+    headers: {
+      Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_TOKEN}`,
+    },
+  });
 
   const member = await response.json();
 
@@ -61,6 +73,9 @@ function OurRenderer({ item, index }){
     }
     if(item.__component === "features.rich-text"){
         return <BlocksRenderer key={index} data={item} content={item.content}/>
+    }
+    if (item.__component === "features.slider") {
+      return <Slider key={index} data={item} />
     }
     return null;
 }
