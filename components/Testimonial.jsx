@@ -8,7 +8,7 @@ export default function Testimonial({ data }) {
   const altText = smallimage?.alternativeText || authorName || "Forfatterbillede";
 
   return (
-    <div className="bg-red-800 rounded-lg py-6 px-16 pb-20 not-prose mb-24 relative text-center">
+    <div className="bg-gray-200 rounded-lg py-6 px-16 pb-20 not-prose mb-24 relative text-center">
       <p className="text-2xl italic text-gray-600">&ldquo;{quote}&rdquo;</p>
       <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2">
         {imageUrl ? (
