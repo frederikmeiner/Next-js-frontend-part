@@ -74,9 +74,9 @@ function OurRenderer({ item, index }){
     if(item.__component === "features.rich-text"){
         return <BlocksRenderer key={index} data={item} content={item.content}/>
     }
-    if (item.__component === "features.slider") {
-      return <Slider key={index} data={item} />
-    }
+    //if (item.__component === "features.slider") {
+     // return <Slider key={index} data={item} />
+    //}
     return null;
 }
 
