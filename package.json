@@ -15,6 +15,7 @@
   "dependencies": {
     "@strapi/blocks-react-renderer": "^1.0.1",
     "@tailwindcss/typography": "^0.5.15",
+    "@vercel/speed-insights": "^1.1.0",
     "husky": "^9.1.7",
     "next": "^15.0.3",
     "qs": "^6.13.1",
