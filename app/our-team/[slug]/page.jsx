@@ -23,11 +23,11 @@ async function fetchTeamMember(slug) {
                 smallimage: true, 
               },
             },
-            "features.slider": {
-              populate: {
-                slide_image: true, 
-              },
-            },
+           // "features.slider": {
+             // populate: {
+                //slide_image: true, 
+              //},
+            //},
           },
         },
       }
