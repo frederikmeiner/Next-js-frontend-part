@@ -2,6 +2,7 @@ import "../assets/main.css"
 import Link from "next/link"
 import Footer from "../components/Footer"
 import NavLink from "../components/NavLink"
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 export const metadata = {
   title: 'Next.js',
@@ -12,6 +13,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
+      <SpeedInsights />
         <div className="bg-gray-200 min-h-[100dvh] grid grid-rows-[auto_1fr_auto] relative">
           <div className="absolute z-0 inset-0 overflow-hidden ">
             <div className="cicle-one blur-2xl w-64 h-64 rounded-full bg-rose-400/50 top-0 right-28 absolute"></div>
