@@ -53,7 +53,8 @@ const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/team-member
 
   if (!member || !member.data || member.data.length === 0) {
     console.error("No data returned from API for slug:", slug);
-    console.log("smallimage:", JSON.stringify(data.smallimage, null, 2));
+    console.log("smallimage:", JSON.stringify(member.data[0].smallimage, null, 2));
+
     return null;
   }
 
