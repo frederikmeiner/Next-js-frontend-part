@@ -1,6 +1,6 @@
 import { BlocksRenderer } from "@strapi/blocks-react-renderer";
 import qs from "qs";
-import Slider from "@/components/Slider";
+//import Slider from "@/components/Slider";
 import Spoiler from "@/components/Spoiler";
 import Testimonial from "@/components/Testimonial";
 
@@ -53,7 +53,7 @@ const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/team-member
 
   if (!member || !member.data || member.data.length === 0) {
     console.error("No data returned from API for slug:", slug);
-    //console.log("smallimage:", JSON.stringify(member.data[0].smallimage, null, 2));
+   // console.log("smallimage:", JSON.stringify(member.data[0].smallimage, null, 2));
 
     return null;
   }
@@ -75,9 +75,9 @@ function OurRenderer({ item, index }){
     if(item.__component === "features.rich-text"){
         return <BlocksRenderer key={index} data={item} content={item.content}/>
     }
-    //if (item.__component === "features.slider") {
-     // return <Slider key={index} data={item} />
-    //}
+    if (item.__component === "features.slider") {
+      return <Slider key={index} data={item} />
+    }
     return null;
 }
 
