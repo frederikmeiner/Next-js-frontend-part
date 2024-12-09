@@ -10,28 +10,46 @@ import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 
 export default function Slider({ data }) {
-    if (!data || !data.slide_image) {
+    // Tjek om slide_image findes
+    if (!data || !data.slide_image || data.slide_image.length === 0) {
+        console.warn('⚠️ Ingen slide_image fundet i data:', data);
         return null; // Returnerer intet, hvis der ikke er nogen billeder
     }
 
+  
+
     return (
         <Swiper
-            modules={[Navigation, Pagination, Scrollbar, A11y]} // Swiper moduler aktiveret
-            spaceBetween={20} // Afstand mellem slides
-            slidesPerView={3} // Antal slides, der vises ad gangen
-            navigation // Næste og forrige knapper
-            pagination={{ clickable: true }} // Aktiver pagination-knapper
-            scrollbar={{ draggable: true }} // Gør scrollbar dragbar
+            modules={[Navigation, Pagination, Scrollbar, A11y]} 
+            spaceBetween={20} 
+            slidesPerView={3} 
+            navigation 
+            pagination={{ clickable: true }} 
+            scrollbar={{ draggable: true }} 
         >
-            {data.slide_image.map((image, index) => (
-                <SwiperSlide key={index}>
-                     <img 
-                        src={`${process.env.NEXT_PUBLIC_API_URL}${image?.url}`} 
-                        alt={image?.alternativeText || `Billede ${index + 1}`} 
-                        className="w-full h-auto" 
-                    />
-                </SwiperSlide>
-            ))}
+            {data.slide_image.map((image, index) => {
+                // Brug KUN formats.thumbnail.url
+                const imageUrl = image?.formats?.medium?.url;
+                const altText = image?.alternativeText || `Billede ${index + 1}`;
+
+
+                return (
+                    <SwiperSlide key={index}>
+                        {imageUrl ? (
+                            <img 
+                                src={imageUrl} 
+                                alt={altText} 
+                                className="w-full h-auto" 
+                                onError={(e) => console.error('❌ Image load failed:', e.target.src)} 
+                            />
+                        ) : (
+                            <div className="w-full h-40 bg-gray-200 flex items-center justify-center">
+                                <span className="text-gray-500">Ingen billede</span>
+                            </div>
+                        )}
+                    </SwiperSlide>
+                );
+            })}
         </Swiper>
     );
 }

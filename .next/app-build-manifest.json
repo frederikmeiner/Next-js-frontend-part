@@ -19,6 +19,7 @@
     "/our-team/[slug]/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
+      "static/css/app/our-team/[slug]/page.css",
       "static/chunks/app/our-team/[slug]/page.js"
     ]
   }

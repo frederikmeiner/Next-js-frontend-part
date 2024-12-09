@@ -996,6 +996,9 @@ video {
 .h-auto {
   height: auto;
 }
+.h-40 {
+  height: 10rem;
+}
 .min-h-\[100dvh\] {
   min-height: 100dvh;
 }
