@@ -1,6 +1,6 @@
 import { BlocksRenderer } from "@strapi/blocks-react-renderer";
 import qs from "qs";
-//import Slider from "@/components/Slider";
+import Slider from "@/components/Slider";
 import Spoiler from "@/components/Spoiler";
 import Testimonial from "@/components/Testimonial";
 
