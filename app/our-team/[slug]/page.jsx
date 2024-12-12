@@ -37,6 +37,7 @@ async function fetchTeamMember(slug) {
     headers: {
       Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_TOKEN}`,
     },
+    next: { revalidate: 60 } // Cacher i 60 sekunder, herefter opdateres data
   });
 
   const member = await response.json();
@@ -47,23 +48,6 @@ async function fetchTeamMember(slug) {
   }
 
   return member.data[0];
-}
-
-export async function getServerSideProps(context) {
-  const { slug } = context.params;
-  const member = await fetchTeamMember(slug);
-
-  if (!member) {
-    return {
-      notFound: true,
-    };
-  }
-
-  return {
-    props: {
-      member,
-    },
-  };
 }
 
 function OurRenderer({ item, index }) {
@@ -82,10 +66,15 @@ function OurRenderer({ item, index }) {
   return null;
 }
 
-export default function Page({ member }) {
+export const dynamic = 'force-dynamic'; // Gør at siden hentes dynamisk
+
+export default async function Page({ params }) {
+  const member = await fetchTeamMember(params.slug);
+
   if (!member) {
-    return <div>No team member found.</div>;
+    notFound(); // Next.js indbygget metode til 404
   }
+
   return (
     <div>
       <h2>{member.Name}</h2>
