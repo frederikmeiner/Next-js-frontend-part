@@ -49,15 +49,7 @@ async function fetchTeamMember(slug) {
   return member.data[0];
 }
 
-export async function getStaticPaths() {
-  // Returnerer tomme paths, da vi kun genererer sider dynamisk
-  return {
-    paths: [],
-    fallback: 'blocking',
-  };
-}
-
-export async function getStaticProps(context) {
+export async function getServerSideProps(context) {
   const { slug } = context.params;
   const member = await fetchTeamMember(slug);
 
@@ -71,7 +63,6 @@ export async function getStaticProps(context) {
     props: {
       member,
     },
-    revalidate: 60, // Genopbyg siden hver 60 sekunder
   };
 }
 
