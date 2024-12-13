@@ -65,8 +65,4 @@ export default async function Page() {
       </div>
     </div>
   );
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> ccf1113efdb1d39ecbdca27c7a25d4515510c341
