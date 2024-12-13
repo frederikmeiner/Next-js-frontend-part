@@ -38,7 +38,7 @@ export default async function Page() {
                 />
               </div>
               <div className="p-6">
-                <h2 className="text-xl text-gray-500 font-bold group-hover:text-gray-700">
+                <h2 className="text-xl text-gray-600 font-bold group-hover:text-gray-700">
                   {member.Name}
                 </h2>
                 <p>{member.description}</p>
