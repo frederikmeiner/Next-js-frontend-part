@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 60; // ISR: Genopdater indholdet hvert 60 sekunder
 
 async function getAllTeamMembers() {
   try {
@@ -8,7 +8,7 @@ async function getAllTeamMembers() {
       headers: {
         Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_TOKEN}`,
       },
-      cache: 'no-store'
+      next: { revalidate: 60 } // Brug Next.js fetch med revalidate
     });
 
     if (!response.ok) {
@@ -19,7 +19,7 @@ async function getAllTeamMembers() {
     return data.data;
   } catch (error) {
     console.error('Error fetching team members:', error);
-    return []; // Returner en tom liste for at undgå, at siden crasher
+    return []; // Returner en tom liste, så siden ikke crasher
   }
 }
 
