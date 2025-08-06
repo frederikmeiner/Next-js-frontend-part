@@ -3,6 +3,9 @@ import qs from "qs";
 import Slider from "@/components/Slider";
 import Spoiler from "@/components/Spoiler";
 import Testimonial from "@/components/Testimonial";
+import { notFound } from 'next/navigation'; // Brug Next.js' indbyggede 404-funktion
+
+export const revalidate = 60; // Gør, at data revalidates hvert 60. sekund
 
 async function fetchTeamMember(slug) {
   const query = qs.stringify(
@@ -37,7 +40,7 @@ async function fetchTeamMember(slug) {
     headers: {
       Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_TOKEN}`,
     },
-    next: { revalidate: 60 } // Cacher i 60 sekunder, herefter opdateres data
+    next: { revalidate: 60 } // Dette aktiverer ISR for API-kaldet
   });
 
   const member = await response.json();
@@ -66,13 +69,11 @@ function OurRenderer({ item, index }) {
   return null;
 }
 
-export const dynamic = 'force-dynamic'; // Gør at siden hentes dynamisk
-
 export default async function Page({ params }) {
   const member = await fetchTeamMember(params.slug);
 
   if (!member) {
-    notFound(); // Next.js indbygget metode til 404
+    notFound(); // Viser 404, hvis teammedlem ikke findes
   }
 
   return (
@@ -87,4 +88,22 @@ export default async function Page({ params }) {
       </div>
     </div>
   );
+}
+
+export async function generateStaticParams() {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/team-members`, {
+    headers: {
+      Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_TOKEN}`,
+    },
+  });
+
+  const data = await response.json();
+
+  if (!data || !data.data) {
+    return [];
+  }
+
+  return data.data.map((member) => ({
+    slug: member.attributes.slug, // Brug sluggen til at generere dynamiske ruter
+  }));
 }
